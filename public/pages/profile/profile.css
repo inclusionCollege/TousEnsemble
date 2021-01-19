@@ -1,0 +1,49 @@
+#profileContainer {
+	margin-top:0px;
+	overflow:hidden;
+	background-color:rgb(255,255,255);
+
+}
+.profileImg {
+	margin-top:10px;
+	margin-left:0px;
+	max-height:100px;
+}
+.profileText {
+	margin-top:0px;
+	margin-left:0px;
+}
+
+#profileSubContainer {
+	margin:auto;
+	border-radius: 10px;
+	background-color: rgb(205,205,205);
+}
+.profileInnerRow {
+	margin-top:20px;
+}
+.profileList {
+	margin-left:20px;
+}
+#profileAdd:hover {
+	-moz-box-shadow:5px 5px 5px rgba(0, 0, 0, 0.349019607843137);
+	-webkit-box-shadow:5px 5px 5px rgba(0, 0, 0, 0.349019607843137);
+	box-shadow:5px 5px 5px rgba(0, 0, 0, 0.349019607843137);
+}
+
+/* modularite du profil */
+
+#btnModification{
+	margin-top: 20px;
+}
+
+#addElement{
+	margin-left: 50px;
+}
+
+.element{
+	margin-bottom: 10px;
+}
+.list{
+	margin-bottom: 20px;
+}

@@ -1,0 +1,23 @@
+button{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+a.linkLike{
+    color: rgb(0,123,255)!important;
+}
+a.linkLike:hover{
+    cursor:help;
+}
+input:disabled+#associateLabel{
+    color:#ccc;
+}
+
+.adminContent,.adminSchoolTitle{
+    padding: 10px;
+}
+.userButtons{
+    margin-bottom: 1.25rem;
+}
+.childCardItem{
+    margin-bottom: 10px;
+}

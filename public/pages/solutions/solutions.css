@@ -1,0 +1,13 @@
+#solutionsInput{
+  width:100px;
+  height:200px;
+}
+
+#solutionAuthor{
+  font-weight: bold;
+}
+
+#solutionsModalContent{
+  background-color: rgb(252, 248, 229);
+  color: rgb(132, 109, 66);
+}

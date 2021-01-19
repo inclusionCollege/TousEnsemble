@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Collège +</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+
+</head>
+
+<body>
+
+	<!-- Modals -->
+	<div class="modal fade" id="indexProfileConfirm" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+			<div class="modal-content">
+				<!-- <div class="modal-header">
+					<h5 class="modal-title" id="indexProfileTitle">Enregistrer les changements</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div> -->
+				<div class="modal-body">
+					<p class="text-center">Voulez-vous enregistrer les changements du profil ?</p>
+					<div class="float-right">
+						<button id="cancelButton" type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+						<button id="confirmButton" type="button" class="btn btn-primary" data-dismiss="modal">Oui</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Modals -->
+
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Index Content -->
+				<div id="contentContainer">
+					<ul id="tabContainer" class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Mon Profil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="skill-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Mes Compétences</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="meeting-tab" data-toggle="tab" href="#meetings" role="tab" aria-controls="meeting" aria-selected="false">Mes Réunions</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="meeting-tab" data-toggle="tab" href="#solutions" role="tab" aria-controls="solution" aria-selected="false">Carnet de solutions</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="false">Mon Actualité</a>
+						</li>
+					</ul>
+
+					<div id="tabContent" class="tab-content">
+						<div class="tab-pane fade show active row" id="profile" role="tabpanel" aria-labelledby="profile-tab" ></div>
+						<div class="tab-pane fade row" id="skills" role="tabpanel" aria-labelledby="skill-tab"></div>
+						<div class="tab-pane fade row" id="news" role="tabpanel" aria-labelledby="news-tab"></div>
+						<div class="tab-pane fade row" id="meetings" role="tabpanel" aria-labelledby="meeting-tab"></div>
+						<div class="tab-pane fade row" id="solutions" role="tabpanel" aria-labelledby="solution-tab"></div>
+					</div>
+				</div>
+				<!-- End Index Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+	<script src="../common/tabContentLoader.js"></script>
+	
+	<script src="../index/index.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+.skillsRound {
+	position: absolute;
+}
+
+.skillsRound label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: default;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+
+.skillsRound input[type="checkbox"] {
+	visibility: hidden;
+}
+
+.skillsRound input[type="checkbox"]:checked + .green {
+	background-color: RGB(119,204,121);
+	border-color: RGB(119,204,121);
+}
+
+.skillsRound input[type="checkbox"]:checked + .red {
+	background-color: RGB(255,75,75);
+	border-color: RGB(255,75,75);
+}
+
+.skillsRound input[type="checkbox"]:checked + .orange {
+	background-color: RGB(239,162, 88);
+	border-color: RGB(239,162, 88);
+}
+
+.skillsRound input[type="checkbox"]:checked + label:after {
+	opacity: 1;
+}
+
+
+#skillsCompétences
+{
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	display: flex;
+	justify-content: space-around;
+	border-radius: 5px;
+}
+
+.skillsTitreCompétences
+{
+	width :100%;
+	height: 100%;
+}
+
+
+.skillsPhraseCheck
+{
+	width : 50%;
+	height : 100%;
+
+}
+
+#skillsPhrases
+{
+	display : flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.skillsPhrase + p
+{
+	margin: auto;
+}
+
+.skillsPhrase
+{
+	width : 100%;
+	height : 100%;
+	text-align: center;
+}
+
+#skillsChecks
+{
+	display: flex;
+	width : 50%;
+	flex-direction: column;
+	justify-content: space-around;
+	align-content: stretch;
+}
+
+.skillsCheck
+{
+	width : 50px;
+	height : 40px;
+}
+
+#skillsCheckbox
+{
+	display: flex;
+	justify-content: space-around;
+	width : 100%;
+	position : right;
+	flex-wrap: wrap;
+
+}
+
+.nav-link.active.show{
+	background-color: rgb(154,255,154);
+}
+#tabContentCurrent,#tabContentAcquired,#tabContentArchived{
+	margin :20px;
+}
+
+#skillContainer, #skillDataChartContent, #categoryContainer{
+	margin: 20px;
+}
+#labelInputNumber, #labelInputDate{
+	margin-right: 10px;
+}
+#optionDateBtn, #optionNumberBtn{
+	margin-left: 10px;
+}
+.optionGroup{
+	margin-bottom: 10px;
+}
+.optionDisabled{
+	color: #c8c8c8!important
+}
+.optionRadio{
+	margin-right: 10px;
+}
+.optionCheckbox{
+	margin-right: 5px;
+}
+.optionCheckboxGroup{
+	margin-right: 10px;
+}

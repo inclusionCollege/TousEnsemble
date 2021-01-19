@@ -1,0 +1,115 @@
+<link rel="stylesheet" type="text/css" href="../news/news.css">
+
+<!-- Template -->
+<template id="newsTemplate">
+	<div class="row newsValue text-center" id="newsValue">
+		<div class="col-md-2 d-flex align-items-center justify-content-center">
+			<span id="newsDate"></span>
+		</div>
+		<div class="col-md-4 newsBorder d-flex align-items-center justify-content-center">
+			<span id="newsAuthor"></span>
+		</div>
+		<div class="col-md-6 d-flex align-items-center justify-content-center">
+			<span id="newsText"></span>
+		</div>
+	</div>
+</template>
+<!-- End Template -->
+
+<!-- Modals -->
+<!-- newsButton -->
+<div class="modal hide fade" id="newsButton" aria-hidden="true" style="display: none; z-index: 1050;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Nouvelle actualité</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="input-group">
+					<textarea id="newsInput" class="form-control"
+					aria-label="With textarea" maxlength="150"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="newsCancel" type="button" class="btn btn-secondary"
+				data-dismiss="modal">Annuler</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#newsValid">Valider</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End newsButton -->
+
+<!-- newsValid -->
+<div class="modal hide" id="newsValid" aria-hidden="true" style="display: none; z-index: 1060;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="newsModalContent">
+			<div class="modal-header">
+				<h5 class="modal-title" id="newsValidlLongTitle">Attention</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="input-group">
+					<a>Etes-vous certain de respecter la charte d'utilisation ?</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+				<button id="addNews" type="button" class="btn btn-warning"
+				data-dismiss="modal">Valider</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End newsValid -->
+<!-- End Modals -->
+
+<div>
+	<!-- News Content -->
+	<div class="newsBanner row">
+		<div class="col col-sm-8">
+			<h2>L'actualité de <span id="surname"></span></h2>
+			<div class="card" id="newsInfos">
+				<div class="card-header collapsed" id="newsInfosHeader" data-toggle="collapse" 
+				data-target="#newsInfosContent" aria-expanded="true" aria-controls="collapseCurrent">
+					<a class="card-link">
+						Informations
+					</a>
+					<i class="fas fa-caret-down float-right" id="arrow"></i>
+				</div>
+				<div id="newsInfosContent" class="collapse" aria-labelledby="newsInfosHeader">
+					<div class="card-body">
+						<i>
+							Cet onglet répertorie des actualités relatives à l'élève : il s'agit d'informations ponctuelles et/ou temporaires que vous jugez utiles ou nécessaires de transmettre à toutes les personnes liées au dossier de l'élève.<br>
+							Il peut être alimenté par tous les utilisateurs, mais reste soumis à la modération de l'administrateur.<br>
+							Chaque actualité publiée sera notifiée par mail au référent de l'élève.<br>
+							<br>
+							Le texte des actualités est limité à 150 caractères maximum.<br>
+							<br> 
+							<b>ATTENTION !</b> Les actualités une fois validées ne pourront plus être éditées ou supprimées.
+						</i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col col-md-4 text-right">
+			<button id="btnCreateNews" type="button" class="btn btn-primary"
+			data-toggle="modal" data-target="#newsButton">Nouvelle actualité</button>
+		</div>
+	</div>
+
+	<div class="newsContent" id="newsContent">
+		<!-- newsTemplate Template -->
+	</div>
+	<!-- End News Content -->
+</div>
+
+
+<script src="../news/news.js"></script>

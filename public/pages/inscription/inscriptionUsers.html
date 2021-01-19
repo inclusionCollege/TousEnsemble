@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Inscription utilisateur</title>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	 crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="../common/common.css">
+	<link rel="stylesheet" href="../inscription/inscription.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row" id="header"></div>
+
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Inscription User Content -->
+				<div id="inscriptionUsersLoading" class="text-center hidden">
+					<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+				</div>
+
+				<div id="inscriptionForm">
+					<h4 class="text-center" style="color: black">INSCRIPTION</h4>
+					
+					<div id="inscriptionUsersAlert" class="alert hidden" role="alert">
+					</div>
+
+					<div class="form-group">
+						<label for="category">Rôle</label>
+						<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="category" name="userType">
+							<option value="" selected>Veuillez choisir...</option>
+							<option value="referent">Référent</option>
+							<option value="parent">Parent</option>
+							<option value="professor">Professeur</option>
+							<option value="AVS">AVS</option>
+						</select>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name">Nom</label>
+								<input type="text" class="form-control" id="name" placeholder="Nom">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="surname">Prénom</label>
+								<input type="text" class="form-control" id="surname" placeholder="Prénom">
+							</div>
+  						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 form-group" id="emailPart">
+    						<label for="email">Mail</label>
+    						<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="XXX@domaine.com">
+    						<small id="emailHelp" class="form-text text-muted">Votre adresse restera toujours confidentielle.</small>
+  						</div>
+
+  						<div class="col-md-6 form-group">
+    						<label  for="additional_info">Informations complémentaires</label>
+    						<input  type="text" class="form-control" id="additional_info" placeholder="Information Complémentaire">
+    					</div>
+					</div>
+
+					<button id="inscriptionUserBtn" type="submit" class="btn btn-primary">INSCRIRE </button>
+				</div>
+				<!-- End Inscription User Content -->
+			</div>
+		</div>
+
+		<div class="row" id="footer"></div>
+
+
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+
+	<script src="../inscription/inscriptionUsers.js"></script>
+
+</body>
+
+</html>

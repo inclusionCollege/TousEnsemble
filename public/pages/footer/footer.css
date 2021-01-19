@@ -1,0 +1,29 @@
+.footerContainer {
+	background-color:rgb(41,81,90);
+	background-image: url("../common/images/background_banner.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.footerText{
+	margin: 15px;
+	color:white;
+}
+
+.footerTitle{
+	margin-bottom: 20px;
+}
+
+.footerBox{
+	font-size: 12px;
+	line-height: 10px;
+	padding-left: 30px;
+}
+
+.footerContainer a{
+	color: lightgrey;
+}
+
+.footerContactAddress{
+	line-height: 20px;
+}

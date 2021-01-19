@@ -1,0 +1,57 @@
+<!-- Template -->
+<template id="meetingsTemplate">
+	<li class="list-group-item" id="meeting">
+		<a href="" target="_blank" id="meetingLink">Réunion du <span id="meetingDate"></span></a>
+		<i id="meetingPdfInfo" class="fas fa-info-circle hidden"
+		data-toggle="tooltip" data-placement="top" style="white-space:pre-wrap;"
+		title="Le PDF n'est pas disponible."></i>
+	</li>
+</template>
+<!-- End Template -->
+
+<!-- Meeting Content -->
+<div class="row">
+	<div class="col col-md-8">
+		<div>
+			<h2>Historique des réunions</h2>
+			<div class="card" id="meetingsInfos">
+				<div class="card-header collapsed" id="meetingsInfosHeader" data-toggle="collapse" 
+				data-target="#meetingsInfosContent" aria-expanded="true" aria-controls="collapseCurrent">
+					<a class="card-link">
+						Informations
+					</a>
+					<i class="fas fa-caret-down float-right" id="arrow"></i>
+				</div>
+				<div id="meetingsInfosContent" class="collapse" aria-labelledby="meetingsInfosHeader">
+					<div class="card-body">
+						<i>
+							Cet onglet permet de visualiser l'historique des réunions de suivi de l'élève.<br>
+							Vous pouvez cliquez sur les liens pour visualiser le compte-rendu au format PDF.<br>
+							<br>
+							Cet espace permet aussi de créer de nouvelles réunions, durant lesquelles il sera possible :
+							<ol>
+								<li>d'éditer les compétences évaluées et les catégories associées</li>
+								<li>d'évaluer/réévaluer les compétences</li>
+								<li>d'archiver des compétences et/ou des catégories de compétences</li>
+								<li>de marquer une compétence comme étant acquise</li>
+							</ol>
+							<br>
+
+							<b>ATTENTION !</b> Seul le référent peut saisir une nouvelle réunion pour l'élève.<br>
+							Il pourra néanmoins transmettre le compte-rendu à l'ensemble des personnes liées à l'enfant.
+						</i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="meetingContainer col col-md-12 list-group" id="meetingsContainer">
+			<!-- Template meeting -->
+		</ul>
+	</div>
+	<div class="col col-md-4 text-right">
+		<button id="btnCreateMeeting" class="btn btn-primary">Nouvelle réunion</button>
+	</div>
+</div>
+<!-- End Meeting Content -->
+
+<script src="../meetings/meetings.js"></script>

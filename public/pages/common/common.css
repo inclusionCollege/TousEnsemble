@@ -1,0 +1,26 @@
+#aside{
+	background-color: rgb(204, 204, 204);
+}
+
+#content{
+	margin:10px 0px;
+}
+
+#tabContent{
+	margin :20px;
+}
+
+.hidden{
+	display: none !important;
+}
+
+#arrow{
+	padding-top: 4px;	
+}
+#arrow:hover{
+	cursor: pointer;
+}
+
+.tooltip > .tooltip-inner{
+	max-width: 350px;
+}

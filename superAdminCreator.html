@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SuperAdmin Creator</title>
+</head>
+<body>
+
+	<style type="text/css">
+		.large input{
+			width: 400px;
+		}
+	</style>
+
+	<form action="" method="post">
+		<input type="hidden" value="superadmin" name="role">
+		<div class="large">
+			<input type="text" placeholder="Nom" name="name">
+		</div>
+		<div class="large">
+			<input type="text" placeholder="Prénom" name="surname">
+		</div>
+		<div class="large">
+			<input type="email" placeholder="Mail" name="email">
+		</div>
+		<input type="submit" value="Créer le superadmin">
+	</form>
+
+	<script>
+		const projectId = "module-de-suivi";
+		const actionUrl = "https://us-central1-"+projectId+".cloudfunctions.net/createFirstSuperAdmin";
+		const form = document.querySelector("form");
+		if(form){
+			form.setAttribute("action",actionUrl);
+		}
+	</script>
+
+</body>
+</html>

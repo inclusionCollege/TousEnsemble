@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Inscription superAdmin</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	 crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	 crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
+	 crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	<link rel="stylesheet" type="text/css" href="../inscription/inscription.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Inscription SuperAdmin Content -->
+				<div id="inscriptionSuperAdminLoading" class="text-center hidden">
+					<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+				</div>
+
+				<div id="inscriptionForm">
+					<h4 class="text-center" style="color: black"> INSCRIPTION </h4>
+					
+					<div id="inscriptionSuperAdminAlert" class="alert hidden" role="alert">
+					</div>
+					<ul>
+						<li>
+							<h5>Informations</h5>
+							<div id="superAdminInfos">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="name">Nom</label>
+											<input type="text" class="form-control" id="name" placeholder="Nom">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="surname">Prénom</label>
+											<input type="text" class="form-control" id="surname" placeholder="Prénom">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="email">Mail</label>
+											<input type="email" class="form-control" id="email" placeholder="mail@domaine.fr">
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<button id="inscriptionSuperAdminBtn" type="submit" class="btn btn-primary">INSCRIRE</button>
+				</div>
+				<!-- End Inscription SuperAdmin Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+
+	<script src="../inscription/inscriptionSuperAdmin.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+{
+  "rules": {
+    "authentication": {
+      ".read": "auth !== null",
+      "$user_id": {
+       	".validate": "newData.hasChild('role')",
+        "role": {
+          ".validate": "newData.isString() && (newData.val() === 'admin' || newData.val() === 'superadmin' || newData.val() === 'user')"
+        },
+        "school": {
+          ".validate": "root.child('schools').child(newData.val()).exists()"
+        }
+      }
+    },
+      
+    "infos": {
+      ".read": "true",
+      ".write": "root.child('authentication').child(auth.uid).child('role').val() === 'superadmin'"
+    },
+    
+		"superadmin": {
+      ".read": "root.child('authentication').child(auth.uid).child('role').val() === 'superadmin'",
+      "$superadmin_id": {
+        ".write": "auth.uid === $superadmin_id",
+        ".validate": "newData.hasChildren(['name','surname','email'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "surname": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+        }
+      }
+    },
+    
+    "schools": {
+      ".read": "root.child('authentication').child(auth.uid).child('role').val() === 'superadmin'",
+      ".write": "root.child('authentication').child(auth.uid).child('role').val() === 'superadmin'",
+      
+      "$school_id": {
+       	".read": "root.child('authentication').child(auth.uid).child('role').val() === 'admin' && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+        ".write": "root.child('authentication').child(auth.uid).child('role').val() === 'admin' && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+          
+        "admin": {
+          "$admin_id": {
+            ".validate": "newData.hasChildren(['name','surname','email'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "surname": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "email": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+            }
+          }
+        },
+          
+        "infos": {
+          ".read": "root.child('schools').child($school_id).child('database/users').child(auth.uid).exists()"
+        },
+        
+        "database": {
+          "children": {
+            "$child_id": {
+             	".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+            	".write": "root.child('authentication').child(auth.uid).child('school').val() === $school_id && root.child('schools').child($school_id).child('database/users').child(auth.uid).child('role').val() === 'referent'",
+              ".validate": "newData.hasChildren(['name','surname','date_of_birth','class'])",
+              "name": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "surname": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "date_of_birth": {
+                ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/[0-9]+(-|\\/)[0-9]+(-|\\/)[0-9]+/)"
+              },
+              "class": {
+                ".validate": "newData.isString()"
+              },
+              "additional_info": {
+                ".validate": "newData.isString()"
+              },
+              "img_url": {
+                ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)"
+              }
+            }
+          },
+            
+          "children_categories": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              "$category_id": {
+                ".validate": "newData.hasChild('name')",
+                "name": {
+                  ".validate": "newData.isString() && newData.val().length > 0"
+                },
+                "archived": {
+                  ".validate": "newData.isBoolean()"
+                },
+                "skills": {
+                  "$skill_id": {
+                    ".validate": "newData.hasChild('name')",
+                    "name": {
+                      ".validate": "newData.isString() && newData.val().length > 0"
+                    },
+                    "acquired": {
+                      ".validate": "newData.isBoolean()"
+                    },
+                    "archived": {
+                      ".validate": "newData.isBoolean()"
+                    }
+                  }
+                }
+              }
+            }
+          },
+            
+          "children_meetings": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id && root.child('schools').child($school_id).child('database/users').child(auth.uid).child('role').val() === 'referent'",
+              "$meeting_id": {
+                ".validate": "newData.hasChild('date')",
+                "date": {
+                  ".validate": "newData.isNumber() && newData.val() < now"
+                },
+                "finished": {
+                  ".validate": "newData.isBoolean()"
+                },
+                "additional_notes": {
+                  ".validate": "newData.isString()"
+                },
+                "pdf_url": {
+                  ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)"
+                },
+                "emails": {
+                  "$index": {
+                    ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+                  }
+                },
+                "participants": {
+                  "$index": {
+                    ".validate": "newData.hasChildren(['id','name','email'])",
+                    "id": {
+                      ".validate": "root.child('schools').child($school_id).child('database/users').child(newData.val()).exists()"
+                    },
+                    "name": {
+                      ".validate": "newData.isString() && newData.val().length > 0"
+                    },
+                    "email": {
+                      ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+            
+          "children_news": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              "$news_id": {
+                ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+                ".validate": "newData.hasChildren(['author','text','date'])",
+                "author": {
+                  ".validate": "root.child('schools').child($school_id).child('database/users').child(newData.val()).exists() || root.child('schools').child($school_id).child('admin').child(newData.val()).exists() || root.child('superadmin').child(newData.val()).exists()"
+                },
+                "date": {
+                  ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() < now"
+                },
+                "text": {
+                  ".validate": "newData.isString() && newData.val().length > 0"
+                }
+              }
+            }
+          },
+            
+          "children_profile": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              "infos": {
+                "$info_id": {
+                  ".validate": "newData.hasChild('name')",
+                  "name": {
+                    ".validate": "newData.isString() && newData.val().length > 0"
+                  },
+                  "items": {
+                    "$item_id": {
+                      ".validate": "newData.hasChild('name')",
+                      "name": {
+                        ".validate": "newData.isString() && newData.val().length > 0"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+            
+          "children_skills": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              "$category_id": {
+                "$skill_id": {
+                  "$meeting_id": {
+                    ".validate": "newData.hasChild('value')",
+                    "value": {
+                      ".validate": "newData.isNumber() && (newData.val() === 1 || newData.val() === 2 || newData.val() === 3)"
+                    }
+                  },
+                  "latest": {
+                    ".validate": "newData.parent().child(newData.val()).exists() && newData.val() !== 'latest' && newData.val() !== 'old_latest'"
+                  },
+                  "old_latest": {
+                    ".validate": "newData.parent().child(newData.val()).exists() && newData.val() !== 'latest' && newData.val() !== 'old_latest'"
+                  }
+                }
+              }
+            }
+          },
+            
+          "children_solutions": {
+            "$child_id": {
+              ".read": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+              "$solution_id": {
+                ".write": "root.child('schools').child($school_id).child('database/relationships').child(auth.uid).child($child_id).exists() && root.child('authentication').child(auth.uid).child('school').val() === $school_id",
+                ".validate": "newData.hasChildren(['author','text','title','date'])",
+                "author": {
+                  ".validate": "root.child('schools').child($school_id).child('database/users').child(newData.val()).exists() || root.child('schools').child($school_id).child('admin').child(newData.val()).exists() || root.child('superadmin').child(newData.val()).exists()"
+                },
+                "date": {
+                  ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() < now"
+                },
+                "text": {
+                  ".validate": "newData.isString() && newData.val().length > 0"
+                },
+                "title": {
+                  ".validate": "newData.isString() && newData.val().length > 0"
+                }
+              }
+              
+            }
+          },
+            
+          "relationships": {
+            ".read": "root.child('schools').child($school_id).child('database/users').child(auth.uid).exists()",
+            ".write": "root.child('schools').child($school_id).child('database/users').child(auth.uid).exists() && root.child('schools').child($school_id).child('database/users').child(auth.uid).child('role').val() === 'referent'",
+            "$user_id": {
+              ".validate": "root.child('schools').child($school_id).child('database/users').child($user_id).exists()",
+              "$child_id": {
+                ".validate": "root.child('schools').child($school_id).child('database/children').child($child_id).exists() && newData.isBoolean()"
+              }
+            }
+          },
+            
+          "roles": {
+            ".read": "root.child('schools').child($school_id).child('database/users').child(auth.uid).exists()",
+            "$role_id": {
+              ".validate": "newData.hasChild('role_name')",
+              "role_name": {
+              	".validate": "newData.isString() && newData.val().length > 0"
+              }
+            }
+          },
+            
+          "users": {
+            ".read": "data.child(auth.uid).exists()",
+            "$user_id": {
+            	".write": "auth.uid === $user_id",
+              ".validate": "newData.hasChildren(['email','name','surname','role'])",
+              "role": {
+                ".validate": "root.child('schools').child($school_id).child('database/roles').child(newData.val()).exists()"
+              },
+              "name": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "surname": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "email": {
+                ".validate": "newData.isString() && newData.val().length > 0 && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+              },
+              "additional_info": {
+                ".validate": "newData.isString()"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+<link rel="stylesheet" type="text/css" href="../solutions/solutions.css">
+
+<!-- Template -->
+<template id="solutionsTemplate">
+  <div class="blog-post" id="solution">
+    <h4 class="blog-post-title" id="solutionTitle"></h4>
+    <p class="blog-post-meta" id="solutionContent">
+      Publié le <span id="solutionDate"></span> par <a id="solutionAuthor"></a>
+    </p>
+
+    <p id="solutionText"></p>
+    <hr>
+  </div>
+</template>
+<!-- End Template -->
+
+<!-- Modals -->
+<!-- solutionsButton -->
+<div class="modal hide fade" id="solutionsButton" aria-hidden="true" style="display: none; z-index: 1050;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nouvelle solution</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Titre</span>
+          </div>
+          <input id="solutionsInputTitle" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+          <textarea id="solutionsInput" class="form-control" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" 
+        data-target="#solutionsValid">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End solutionsButton -->
+
+<!-- solutionsValid -->
+<div class="modal hide" id="solutionsValid" aria-hidden="true" style="display: none; z-index: 1060;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" id="solutionsModalContent">
+      <div class="modal-header">
+        <h5 class="modal-title" id="solutionsValidlLongTitle">Attention</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <a>Etes-vous certain de respecter la charte d'utilisation ?</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button id="addSolutions" type="button" class="btn btn-warning" 
+        data-dismiss="modal">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End solutionsValid -->
+<!-- End Modals -->
+
+<div>
+  <!-- Solutions Content -->
+  <div class="row">
+    <div class="col col-md-8">
+      <h2>Carnet de solutions</h2>
+      <div class="card" id="solutionsInfos">
+				<div class="card-header collapsed" id="solutionsInfosHeader" data-toggle="collapse" 
+				data-target="#solutionsInfosContent" aria-expanded="true" aria-controls="collapseCurrent">
+					<a class="card-link">
+						Informations
+					</a>
+					<i class="fas fa-caret-down float-right" id="arrow"></i>
+				</div>
+				<div id="solutionsInfosContent" class="collapse" aria-labelledby="solutionsInfosHeader">
+					<div class="card-body">
+						<i>
+              Cet onglet répertorie les stratégies efficaces avec l'élève dans des situations problématiques et/ou récurrentes.<br>
+							Il peut être alimenté par tous les utilisateurs, mais reste soumis à la modération de l'administrateur.<br> 
+							Chaque solution publiée sera notifiée par mail au référent de l'élève.<br>
+							<br>
+							<b>ATTENTION !</b> Les solutions une fois validées ne pourront plus être éditées ou supprimées. 
+						</i>
+					</div>
+				</div>
+			</div>
+    </div>
+    <div class="col col-md-4 text-right">
+        <button id="btnCreateSolutions" type="button" class="btn btn-primary" 
+        data-toggle="modal" data-target="#solutionsButton">Nouvelle solution</button>
+    </div>
+  </div>
+
+  <br>
+
+  <div id="solutionsContent">
+    <!-- solution Template -->
+  </div>
+
+  <!-- End Solutions Content -->
+</div>
+
+<script src="../solutions/solutions.js"></script>

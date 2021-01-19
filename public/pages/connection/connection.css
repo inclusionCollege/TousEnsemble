@@ -1,0 +1,19 @@
+.connectionForm{
+	margin-top:20%;
+	margin-bottom:30%;
+	padding: 5%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(204, 204, 204, 1);
+	border-radius: 10px;
+	-moz-box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.35);
+	-webkit-box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.35);
+	box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.35);
+}
+#connectionForgotPassword{
+	font-size:12px;
+	color: rgb(0,0,255);
+}
+.connectionBorder{
+	border-width: 2px;
+}

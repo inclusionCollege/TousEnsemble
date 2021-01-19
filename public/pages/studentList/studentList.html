@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<title>Liste des élèves</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	<link rel="stylesheet" href="../studentList/studentList.css">
+</head>
+
+
+<body>
+
+	<!-- Template -->
+	<template id="studentListTemplate">
+		<div class="card" id="student">
+			<div class="card-header collapsed" id="studentHeader" data-toggle="collapse" 
+			data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+				<a href="#" class="card-link" id="studentLink"></a>
+				<i class="fas fa-caret-down float-right" id="arrow"></i>
+			</div>
+			<div class="collapse" id="studentContent">
+				<div class="card-body">
+					<ul>
+						<li>
+							<a id="studentProfile">Fiche élève</a>
+						</li>
+						<li>
+							<span id="studentReferent"> Référent : </span>
+							<a class="linkLike" data-placement="bottom" data-toggle="tooltip" 
+							id="referentLink"></a>
+						</li>
+						<li>
+							<span>Parents :</span>
+							<a id="parentList"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</template>
+	<!-- Template -->
+
+
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- StudentList Content -->
+				<div class="d-flex justify-content-between align-items-center">
+					<h1>Liste des élèves</h1>
+					<h4 id="schoolName"></h4>
+				</div>
+				<br>
+				<div class="input-group" style="margin-bottom:10px;">
+					<input type="text" id="search" class="form-control" placeholder="Rechercher un élève">
+					<span class="input-group-btn">
+						<button id="btnInscriptionChild" class="btn btn-primary">Inscrire un élève</button>
+					</span>
+				</div>
+				<div id="accordion">
+					<!-- student Template -->
+				</div>
+				<!-- End StudentList Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+
+	<script src="../studentList/studentList.js"></script>
+</body>
+
+</html>

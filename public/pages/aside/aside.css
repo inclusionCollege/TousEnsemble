@@ -1,0 +1,57 @@
+#asideBanner{
+	padding:10px 0px;
+	height: 100%;
+	/* background-color: rgb(204, 204, 204); */
+}
+
+#asideBannerText{
+	font-size:14px;
+	border-width:0px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.asideFiller{
+	flex: 1;
+}
+
+#asideMsgWelcome{
+	font-size:16px;
+}
+
+#asideUser{
+	font-size:16px;
+}
+
+.asideBannerItem{
+	margin: 10px 0px;
+}
+
+.asideArticleTitle{
+	font-size:17px;
+}
+
+#asideArticles{
+	background-color:rgb(255, 255, 255, 0);
+	font-size:11px;
+	text-align: center;
+}
+
+#asideImgBanner{
+	max-height: 90%;
+	max-width: 90%;
+	border: 4px solid black;
+	border-radius: 4px;
+}
+
+.asideContainer-modal{
+	background-color:rgb(255, 255, 255);
+	border-radius: 8px;
+}
+
+.asideModalDelUser{
+	background-color: rgb(252, 248, 229);
+  	color: rgb(132, 109, 66);
+}

@@ -1,0 +1,12 @@
+.adminName:hover{
+	cursor: help;
+}
+#admin{
+	margin: 10px 0px;
+}
+.superAdminName:hover{
+	cursor: help;
+}
+.configItem{
+	margin-bottom: 30px;
+}

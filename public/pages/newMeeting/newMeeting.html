@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<title>Nouvelle Réunion</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	 crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	 crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+	 crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	<link rel="stylesheet" href="../newMeeting/newMeeting.css">
+
+</head>
+
+<body>
+	<!-- Template -->
+	<template id="newMeetingTemplate">
+		<!-- participant -->
+		<label id="participant" class="form-check-label">
+			<input class="form-check-input" type="checkbox" value="">
+		</label>
+		<!-- End participant -->
+
+		<!-- skillTabBtn -->
+		<li class="nav-item" id="skillTabBtn">
+			<a class="nav-link h-100" id="tabId" data-toggle="tab" href="#" role="tab">
+				<span id="tabName" class="align-middle"></span>
+				<button id="tabDel" class="btn btn-warning"
+				data-toggle="modal" data-target="#newMeetingCatDel" 
+				data-tooltip="tooltip" data-placement="top" title="Archiver une catégorie">
+					<i class="fas fa-archive"></i>
+				</button>
+				<button id="tabRestore" class="btn btn-secondary hidden" 
+				data-toggle="modal" data-target="#newMeetingCatRestore"
+				data-tooltip="tooltip" data-placement="top" title="Restaurer une catégorie">
+					<i class="fas fa-sign-in-alt"></i>
+				</button>
+			</a>
+		</li>
+		<!-- End skillTabBtn -->
+
+		<!-- skillSection -->
+		<div class="tab-pane fade row" id="skillSection" role="tabpanel">
+			<div id="skillContent" class="skillSection">
+				<div class="card" id="skillCurrent">
+					<div class="card-header" id="headingCurrent" data-toggle="collapse" 
+					data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+						<a class="card-link">
+							Compétences en cours
+						</a>
+						<i class="fas fa-caret-up float-right" id="arrow"></i>
+					</div>
+					<div id="collapseCurrent" class="collapse show" aria-labelledby="headingCurrent">
+						<div class="card-body">
+							<div id="skillsCompétences">
+								<div id="tabContentCurrent" class="tab-content">
+									<!-- skillCurrentBlock Template -->
+									<button id="addSkill" class="btn btn-success"
+									data-tooltip="tooltip" data-placement="top" title="Ajouter une compétence">
+										<i class="fas fa-plus"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+		
+				<div class="card" id="skillAcquired">
+					<div class="card-header collapsed" id="headingAcquired" data-toggle="collapse" 
+					data-target="#collapseAcquired" aria-expanded="true" aria-controls="collapseAcquired">
+						<a class="card-link">
+							Compétences acquises
+						</a>
+						<i class="fas fa-caret-down float-right" id="arrow"></i>
+					</div>
+		
+					<div id="collapseAcquired" class="collapse" aria-labelledby="headingAcquired">
+						<div class="card-body">
+							<div id="skillsCommunicationBlock">
+								<div id="tabContentAcquired" class="tab-content">
+									<!-- skillAcquiredBlock Template -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="card" id="skillArchived">
+					<div class="card-header collapsed" id="headingArchived" data-toggle="collapse" 
+					data-target="#collapseArchived" aria-expanded="true" aria-controls="collapseArchived">
+						<a class="card-link">
+							Compétences archivées
+						</a>
+						<i class="fas fa-caret-down float-right" id="arrow"></i>
+					</div>
+		
+					<div id="collapseArchived" class="collapse" aria-labelledby="headingArchived">
+						<div class="card-body">
+							<div id="skillsCommunicationBlock">
+								<div id="tabContentArchived" class="tab-content">
+									<!-- skillArchivedBlock Template -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End skillSection -->
+
+		<!-- skillBlock -->
+		<div id="skillBlock" class="row newMeetingSkillRow">
+			<div id="skillNameGroup" class="col-md-6">
+				<div id="skillNameNoEdit" class="form-inline">
+					<span id="skillName"></span>
+					<button class="btn btn-primary newMeetingEditBtn" id="skillNameEditBtn"
+					data-tooltip="tooltip" data-placement="top" title="Editer le titre">
+						<i class="fas fa-edit"></i>
+					</button>
+				</div>
+				<div id="skillNameEdit" class="form-inline hidden">
+					<input id="skillNameEdit" type="text" class="form-control">
+					<button class="btn btn-success" id="skillNameEditValidateBtn"
+					data-tooltip="tooltip" data-placement="top" title="Valider le titre">
+						<i class="fas fa-check"></i>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<span id="skillBtnGroup" class="btn-group skill" role="group">
+					<button type="button" class="btn btn-outline-secondary red">
+						<i id="newMeetingFixFa" class="fas fa-frown fa-lg"></i>
+					</button>
+					<button type="button" class="btn btn-outline-secondary orange">
+						<i id="newMeetingFixFa" class="fas fa-meh fa-lg"></i>
+					</button>
+					<button type="button" class="btn btn-outline-secondary green">
+						<i id="newMeetingFixFa" class="fas fa-smile fa-lg"></i>
+					</button>
+				</span>
+			</div>
+			<div class="col-md-3">
+				<div class="float-right">
+					<button id="skillCheck" class="btn btn-success" 
+					data-tooltip="tooltip" data-placement="top" title="Compétence acquise">
+						<i class="fas fa-sign-out-alt"></i>
+					</button>
+					<button id="skillRestore" class="btn btn-secondary" 
+					data-tooltip="tooltip" data-placement="top" title="Compétence en cours">
+						<i class="fas fa-sign-in-alt"></i>
+					</button>
+					<button type="button" id="skillDel" class="btn btn-warning" 
+					data-tooltip="tooltip" data-placement="top" title="Compétence à archiver">
+						<i class="fas fa-archive"></i>
+					</button>
+					<button type="button" id="skillCancel" class="btn btn-secondary hidden">
+						Annuler
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- End skillBlock -->
+	</template>
+	<!-- End Template -->
+
+	<!-- Modals -->
+	<!-- newMeetingValid -->
+	<div class="modal fade" id="newMeetingValid" tabindex="-1" role="dialog" aria-labelledby="newMeetingTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content" id="newMeetingModalContent">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Attention</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<a>Etes-vous certain de respecter la charte d'utilisation ?</a>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="saveModalButton" type="button" class="btn btn-warning" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingValid -->
+
+	<!-- newMeetingCatDel -->
+	<div class="modal fade" id="newMeetingCatDel" tabindex="-1" role="dialog" aria-labelledby="newMeetingTitle" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Attention</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<a>Voulez-vous vraiment archiver cette catégorie ?</a>
+						<span id="catId" class="hidden"></span>
+						<span id="catName" class="hidden"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="validButton" type="button" class="btn btn-warning" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingCatDel -->
+
+	<!-- newMeetingCatRestore -->
+	<div class="modal fade" id="newMeetingCatRestore" tabindex="-1" role="dialog" aria-labelledby="newMeetingTitle" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Attention</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<a>Voulez-vous vraiment restorer cette catégorie ?</a>
+						<span id="catId" class="hidden"></span>
+						<span id="catName" class="hidden"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="validButton" type="button" class="btn btn-warning" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingCatRestore -->
+
+	<!-- newMeetingAddPart -->
+	<div class="modal fade" id="newMeetingAddPart" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Ajouter un intervenant</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<input type="text" id="name" class="form-control" placeholder="Nom" autofocus>
+					</div>
+					<div class="input-group mb-3">
+						<input type="email" id="email" class="form-control" placeholder="Email">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="addButton" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingAddPart -->
+
+	<!-- newMeetingAddCat -->
+	<div class="modal fade" id="newMeetingAddCat" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Ajouter une catégorie</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<input type="text" id="nameCat" class="form-control" placeholder="Nom" autofocus>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="addButton" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingAddCat -->
+
+	<!-- newMeetingAddSkill -->
+	<div class="modal fade" id="newMeetingAddSkill" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMeetinglLongTitle">Ajouter une compétence</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<input type="text" id="nameSkill" class="form-control" placeholder="Nom" autofocus>
+						<span id="categoryId" class="hidden"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="addButton" type="button" class="btn btn-danger" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End newMeetingAddSkill -->
+	<!-- End Modals -->
+
+	<div class="container">
+		<!-- NewMeeting Content -->
+		<div class="row newMeetingRow">
+			<div class="col-md-1"></div>
+			<div id="PDF" class="col-md-10">
+				<div class="row">
+					<!-- Title Row -->
+					<div class="col text-center">
+						<h2 id="newMeetingDate"></h2>
+						<h2 id="studentNameAndClass"></h2>
+					</div>
+				</div>
+
+				<div id="newMeetingAlert" class="alert hidden" role="alert">
+				</div>
+
+				<div class="row newMeetingRow">
+					<!-- Members Row -->
+					<div class="col-md-4">
+						<h4>Intervenants : </h4>
+					</div>
+					<div class="col-md-8">
+						<div class="form-check">
+							<span id="membersList">
+								<!-- participant Template -->
+							</span>
+							<button id="addParticipant" class="btn btn-success"
+							data-toggle="modal" data-target="#newMeetingAddPart" 
+							data-tooltip="tooltip" data-placement="top" title="Ajouter un intervenant">
+								<i class="fas fa-plus"></i>
+							</button>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row newMeetingRow">
+					<!-- Competences Row -->
+					<div class="col-md-6">
+						<h4>Compétences :</h4>
+					</div>
+					<div class="col-md-6">
+						<button class="btn btn-success float-right" id="addCategory"
+						data-toggle="modal" data-target="#newMeetingAddCat" 
+						data-tooltip="tooltip" data-placement="top" title="Ajouter une catégorie">
+							<i class="fas fa-plus"></i>
+						</button>
+					</div>
+					<div id="skillParent" class="col-md-12">
+						<!-- Template will fill it -->
+						<ul id="tabContainer" class="nav nav-tabs" role="tablist">
+							<!-- skillTabBtn Template -->
+							<li class="nav-item hidden" id="archivedCategoriesTab">
+								<a class="nav-link h-100" id="tabId" data-toggle="tab" href="#archivedCategories" role="tab">
+									<span id="tabName" class="align-middle">Catégories archivées</span>
+								</a>
+							</li>
+						</ul>
+						<div id="tabContent" class="tab-content">
+							<!-- skillSection Template -->
+							<div class="tab-pane fade row" id="archivedCategories" role="tabpanel">
+								<ul id="categoryTabs" class="nav nav-tabs" role="tablist">
+									<!-- skillTabBtn Template -->
+								</ul>
+								<div id="categoryContainer" class="tab-content">
+									<!-- archivedCategory Template -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row newMeetingRow">
+
+					<!-- Remarks Row -->
+					<div class="col-md-4">
+						<h4>Remarques :</h4>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group">
+							<textarea class="form-control" rows="5" id="comment"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="row newMeetingRow">
+
+					<!-- Buttons Row -->
+					<div class="col-md-12">
+						<div class="float-md-right">
+							<button class="btn btn-secondary hidden" id="closeButton">Fermer la page</button>
+							<button class="btn btn-secondary" id="cancelButton">Annuler</button>
+							<button class="btn btn-primary" id="saveButton" data-toggle="modal" data-target="#newMeetingValid" data-dismiss="modal">Valider</button>
+						</div>
+					</div>
+
+				</div>
+				<div id="newMeetingLoading" class="text-center hidden">
+					<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		<!-- End NewMeeting Content -->
+	</div>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+	<script src="../common/autosize.min.js"></script>
+
+	<script src="../newMeeting/newMeeting.js"></script>
+
+</body>
+
+</html>

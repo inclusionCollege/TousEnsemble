@@ -1,0 +1,27 @@
+#newsInput{
+  width:100px;
+  height:200px;
+}
+
+#newsDate{
+  font-weight:bold;
+}
+
+#newsModalContent{
+  background-color: rgb(252, 248, 229);
+  color: rgb(132, 109, 66);
+}
+
+.newsBorder{
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+
+.newsContent{
+	margin-top: 20px;
+  /*font-size: 8px;*/
+}
+
+.newsValue{
+	margin:20px 0px;
+}

@@ -1,0 +1,10 @@
+.configContent{
+    margin-bottom: 20px;
+}
+
+.adminName:hover{
+	cursor: help;
+}
+#admin{
+	margin: 10px 0px;
+}

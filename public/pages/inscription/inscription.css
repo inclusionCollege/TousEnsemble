@@ -1,0 +1,25 @@
+#inscriptionForm{
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 20px 10px 10px 10px;
+}
+
+#inscriptionType{
+	margin-top: 10px;
+	/*width: 200px;
+	height: 150px;*/
+}
+
+.darkClass
+{
+    background-color: white;
+    filter:alpha(opacity=50); /* IE */
+    opacity: 0.5; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+}
+
+#inscriptionUsersLoading, #inscriptionChildLoading, #inscriptionSchoolLoading
+, #inscriptionAdminLoading, #inscriptionSuperAdminLoading{
+	position: absolute;	
+	left: 50%; top:50%;
+}

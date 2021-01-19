@@ -1,0 +1,130 @@
+<link type="text/css" rel="stylesheet" href="../profile/profile.css"/>
+
+<!-- Template -->
+<template id="profileTemplate">
+	<!-- fields -->
+	<div class="col-md-4 list" id="fields">
+		<h3 class="titleContent" id="title">
+			<span id="spanTitle" class="hidden"></span>
+			<div id="edition" class="input-group input-group-lg hidden">
+				<input type="text" class="form-control" id="inputTitle"  placeholder="Titre">
+				<button class="btn btn-danger" id="delTitle" data-tooltip="tooltip" data-placement="top" title="Supprimer la liste">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
+		</h3>
+
+		<ul class="profileList" id="profileList">
+			<!-- liEdition Template -->
+		</ul>
+
+		<button type="button" id="addElement" class="btn btn-outline-secondary hidden" data-tooltip="tooltip" data-placement="top" title="Ajouter un élément">
+			<i class="fas fa-plus"></i>
+		</button>
+	</div>
+	<!-- End fields -->
+
+	<!-- liEdition -->
+	<li id="liEdition" class="element">
+		<span id="spanLi" class="hidden"></span>
+		<div id="edition" class="input-group hidden">
+			<input type="text" class="form-control" id="inputLi"  placeholder="Elément">
+			<button class="btn btn-danger" id="delItem" data-tooltip="tooltip" data-placement="top" title="Supprimer l'élément">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+	</li>
+	<!-- End liEdition -->
+
+</template>
+<!-- End Template -->
+
+<!-- Modals -->
+<!-- saveConfigModal -->
+<div class="modal fade" id="saveConfigModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="adminDelModalTitle">Attention</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="body">
+					<span>
+						Choisir l'image par défaut va supprimer l'image en cours.<br>
+						Êtes-vous sûr de vouloir continuer ?
+					</span>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+				<button id="validButton" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End saveConfigModal -->
+<!-- End Modals -->
+
+
+<div id="profileContainer">
+	<!-- Profile Content -->
+	<div class="row profileInnerRow text-center">
+		<div class="col-md-3">
+			<div class="profileImage">
+				<i id="imageSpinner" class="fas fa-spinner fa-spin" style="font-size:200%"></i>
+				<img class="hidden" src="../common/images/child_generic.png" id="childImage" style="max-height: 128px; border: 1px solid grey" />
+				<div class="input-group hidden" id="profileImage">
+					<div class="custom-file">
+					    <input type="file" class="custom-file-input" id="profileImageFile" accept="image/*">
+					    <label id="profileImageLabel" class="custom-file-label text-left" for="profileImageFile">Choisir l'image</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="profileDefaultImg">
+						<label for="profileDefaultImg" class="form-check-label">Choisir l'image par défaut</label>
+					</div>
+				</div>
+				<div class="progress hidden" id="imageProgressBarContainer">
+					<div id="imageProgressBar" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="profileText">
+				<h4><span id="fullName"></span></h4>
+				<p><span>Je m'appelle <span id="name"></span>, j'ai <span id="age"></span> ans et je suis en <span id="class"></span>.</span></p>
+			</div>
+		</div>
+
+		<div class="col-md-5">
+			<div class="profileText">
+				<button id="btnEdition" type="button" class="btn btn-outline-primary">Editer le profil</button>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="childInfo" class="row profileInnerRow">
+		<!-- Template fields goes here -->
+	</div>
+
+	<div id="btnModification" class="hidden">
+		<div class="col-md-1 pull-left">
+			<button id="btnAdd" class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Ajouter une liste">
+				<i class="fas fa-plus"></i>
+			</button>
+		</div>
+
+		<div class="pull-right">
+			<button id="btnCancel" type="button" class="btn btn-secondary">Annuler</button>
+			<button id="btnSave" type="button" class="btn btn-success"> Enregister </button>
+		</div>
+	</div>
+
+	<!-- End Profile Content -->
+</div>
+
+<script src="../profile/profile.js"></script>

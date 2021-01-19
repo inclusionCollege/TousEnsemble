@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>Relations</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- Template -->
+    <template id="relationsTemplate">
+        <!-- User Template -->
+        <div id="userTemplate" class="card" >
+            <div class="card-header collapsed" id='userHeader' data-toggle="collapse" data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+                <a href="#" class="card-linkUser" id="userLink"></a>
+                <i class="fas fa-caret-down float-right" id="arrow"></i>
+            </div>
+            <div class="collapse" id="userCard">
+                
+                <div class="card-body">
+                    <div>Contact : <span id="userEmail"></span></div>
+                    <div>Enfants associés : </div>
+                    <ul id="listRelation">
+                    </ul>
+                    <div class="float-right userButtons">
+                        <button type="button" id="userDel" class="btn btn-danger">Supprimer l'utilisateur</button>
+                        <button type="button" id="buttonModal" class="btn btn-dark">Gérer les associations</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Children Template -->
+        <div id ="childrenTemplate" class="card" >
+            <div class="card-header collapsed" id="childCardHeader" data-toggle="collapse" data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+                <a href="#" class="card-linkChild" id="childLink"></a>
+                <i class="fas fa-caret-down float-right" id="arrow"></i>
+            </div>
+            <div class="collapse" id="childCard">
+                <div class="card-body">
+                    <div class="childCardItem">
+                        <a id="childProfile">Fiche élève</a>
+                    </div>
+                    <div class="childCardItem">
+                        <div id="childReferent">Référent :
+                            <a class="linkLike" data-placement="bottom" data-tooltip="tooltip" id="referentLink"></a>
+                        </div>
+                    </div>
+                    <div class="childCardItem">
+                        <div>Parents : </div>
+                        <ul id="parentList"></ul>
+                    </div>
+                    <div>
+                        <button type="button" id="childDel" class="btn btn-danger">Supprimer l'enfant</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Associate Child Template -->
+        <div id="associateChildTemplate" class="form-check">
+            <input type="checkbox" class="form-check-input" id="associateInput">
+            <label class="form-check-label" for="" id="associateLabel"></label>
+        </div>
+    </template>
+    <!-- End Template -->
+
+
+     <!-- Modal -->
+     <!-- relationModal -->
+    <div class="modal fade" id="relationModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Gérer les associations</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="associateChildList" class="modal-body">
+            <!-- TEMPLATE associateChildTemplate -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button id="btnAssociation" type="button" class="btn btn-primary" >Associer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End relationModal -->
+
+    <!-- userDelModal -->
+    <div class="modal fade" id="userDelModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Supprimer un utilisateur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="body">
+                        <span>Voulez vous vraiment supprimer cet utilisateur ?</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button id="validButton" type="button" class="btn btn-danger" data-dismiss="modal">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End userDelModal -->
+
+    <!-- childDelModal -->
+    <div class="modal fade" id="childDelModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Supprimer un enfant</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="body">
+                            <span>Voulez vous vraiment supprimer cet enfant ?</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button id="validButton" type="button" class="btn btn-danger" data-dismiss="modal">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End childDelModal -->
+    <!-- End Modal -->
+
+    <div class="container">
+        <div class="row" id="header"></div>
+        <div class="row">
+            <div class="col-md-2" id="aside"></div>
+            <div class="col-md-10 adminContent">
+                <!-- Admin Content -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="adminSchoolTitle">Page Administrateur - <span id='schoolName'></span></h2>
+                    <a id="schoolConfig" class="btn btn-primary">Configuration</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Liste des utilisateurs</h3></br>
+                        <div class="input-group" style="margin-bottom:10px;">
+                            <input type="text" id="searchUser" class="form-control" placeholder="Rechercher un utilisateur" style="height: 38px;">
+                            <span class="input-group-btn">
+                                <a id="linkInscriptionUsers"><button id="btnInscriptionUsers" class="btn btn-primary">Inscrire un utilisateur</button></a>
+                            </span>
+                        </div>
+                        <div id="usersList">
+                            <!-- TEMPLATE userTemplate -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>Liste des élèves</h3><br>
+                        <div class="input-group" style="margin-bottom:10px;">
+                            <input type="text" id="searchChild" class="form-control" placeholder="Rechercher un élève" style="height: 38px;">
+                            <span class="input-group-btn">
+                                <a id="linkInscriptionChild"><button id="btnInscriptionChild" class="btn btn-primary">Inscrire un élève</button></a>
+                            </span>
+                        </div>
+                        <div id="childrenList">
+                            <!-- TEMPLATE childrenTemplate -->
+                        </div>
+                     </div>
+                 </div>
+                 <!-- End Admin Content -->
+            </div>
+        </div>
+
+        <div class="row" id="footer"></div>
+    </div>
+
+    <script src="../common/firebaseConfig.js"></script>
+    <script src="../common/firebaseCloudFunctions.js"></script>
+    <script src="../common/commonFonctions.js"></script>
+    <script src="../common/databaseConfig.js"></script>
+    
+    <script src="../common/pageLoader.js"></script>
+
+    <script src="../admin/admin.js"></script>
+
+</body>
+
+</html>

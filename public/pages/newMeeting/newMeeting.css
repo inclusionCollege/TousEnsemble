@@ -1,0 +1,76 @@
+.newMeetingOldSkill{
+    border-color: blue!important;
+    border-width: 2px!important;
+}
+
+.newMeetingRow{
+    margin-bottom: 50px;
+}
+
+.newMeetingSkillRow{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#newMeetingFixFa{
+	color: black;
+	font-weight: normal;
+}
+
+.green.active, .green:hover:enabled{
+	background-color: rgb(119,204,121)!important;
+}
+
+.orange.active, .orange:hover:enabled{
+	background-color: rgb(239,162, 88)!important;
+}
+
+.red.active, .red:hover:enabled{
+	background-color: rgb(200,75,75)!important;
+}
+
+#newMeetingModalContent{
+  background-color: rgb(252, 248, 229);
+  color: rgb(132, 109, 66);
+}
+
+.newMeetingAcquired{
+	background-color: #28a745;
+}
+.newMeetingArchived{
+	background-color: #ffc107;
+}
+.newMeetingDeleted.active{
+	color: rgb(200,75,75)!important;
+	background-color: white!important;
+}
+.newMeetingDeleted{
+	color: rgb(200,75,75)!important;
+	background-color: #D3D3D3!important;
+}
+.newMeetingDisabled{
+	color: #6c757d!important;
+}
+.darkClass
+{
+    background-color: white;
+    filter:alpha(opacity=50); /* IE */
+    opacity: 0.5; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+}
+
+.newMeetingEditBtn{
+	margin-left: 10px;
+}
+.nav-link.active.show{
+	background-color: rgb(154,255,154);
+}
+
+#newMeetingLoading{
+	position: absolute;	
+	left: 50%; top:50%;
+}
+
+#archivedCategoriesTab a{
+	padding-top: 13px;
+}

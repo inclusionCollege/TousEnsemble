@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Test</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<!-- Page Link -->
+
+	<!-- End Page Link -->
+</head>
+
+<body>
+	<!-- Page Template -->
+
+	<!-- End Page Template -->
+
+	<!-- Page Modals -->
+
+	<!-- End Page Modals -->
+
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Page Content -->
+				<canvas id="myChart"></canvas>
+				<!-- End Page Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+	<script src="../common/pageLoader.js"></script>
+
+	<!-- Page Scripts -->
+	<script>
+		const ctx = $("#myChart");
+		const data = {
+			datasets: [
+				{
+					label: "Sait ranger son manteau",
+					data: [
+						{
+							x: new Date(1528634268000),
+							y: 1
+						},
+						{
+							x: new Date(1529026234782),
+							y: 3
+						},
+						{
+							x: new Date(1529809595704),
+							y: 2
+						},
+						{
+							x: new Date(1530099629783),
+							y: 1
+						}
+					],
+					fill: false,
+					// lineTension: 0,
+					borderColor: 'rgba(0, 0, 0, 0.5)'
+				},
+				{
+					label: "Sait ranger sa chaise",
+					data: [
+						{
+							x: new Date(1528634268000),
+							y: 1
+						},
+						{
+							x: new Date(1529026234782),
+							y: 2
+						},
+						{
+							x: new Date(1529809595704),
+							y: 1
+						},
+						{
+							x: new Date(1530099629783),
+							y: 3
+						}
+					],
+					fill: false,
+					// lineTension: 0,
+					borderColor: 'rgba(255, 0, 0, 0.5)'
+				}
+			]
+		}
+		const options = {
+			scales: {
+				xAxes: [{
+					type: 'time'
+				}],
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						max: 4
+					}
+				}]
+			}
+		};
+		const myLineChart = new Chart(ctx, {
+			type: 'line',
+			data: data,
+			options: options
+		});
+	</script>
+	<!-- End Page Scripts -->
+
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<link rel="stylesheet" type="text/css" href="../skills/skills.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+
+<!-- Template -->
+<template id="skillsTemplate">
+	<!-- skillTabBtn -->
+	<li class="nav-item" id="skillTabBtn">
+		<a class="nav-link" id="tabId" data-toggle="tab" href="#" role="tab"></a>
+	</li>
+	<!-- End skillTabBtn -->
+
+	<!-- skillSection -->
+	<div class="tab-pane fade row" id="skillSection" role="tabpanel">
+		<ul id="skillDataChartTab" class="nav nav-tabs" role="tablist">
+			<li class="nav-item" id="skillDataTab">
+				<a class="nav-link" id="tabId" data-toggle="tab" href="#" role="tab">Dernières données</a>
+			</li>
+			<li class="nav-item" id="skillChartTab">
+				<a class="nav-link" id="tabId" data-toggle="tab" href="#" role="tab">Graphique d'évolution</a>
+			</li>
+		</ul>
+		<div id="skillDataChartContent" class="tab-content">
+			<div class="tab-pane fade" id="skillData" role="tabpanel">
+				<div id="skillDataContent">
+					<div class="card" id="skillCurrent">
+						<div class="card-header" id="headingCurrent" data-toggle="collapse" 
+						data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+							<a class="card-link">
+								Compétences en cours
+							</a>
+							<i class="fas fa-caret-up float-right" id="arrow"></i>
+						</div>
+						<div id="collapseCurrent" class="collapse show" aria-labelledby="headingCurrent">
+							<div class="card-body">
+								<div id="skillsCompétences">
+									<div id="tabContentCurrent" class="tab-content">
+										<!-- skillCurrentBlock Template -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="card" id="skillAcquired">
+						<div class="card-header collapsed" id="headingAcquired" data-toggle="collapse" 
+						data-target="#collapseAcquired" aria-expanded="true" aria-controls="collapseAcquired">
+							<a class="card-link">
+								Compétences acquises
+							</a>
+							<i class="fas fa-caret-down float-right" id="arrow"></i>
+						</div>
+			
+						<div id="collapseAcquired" class="collapse" aria-labelledby="headingAcquired">
+							<div class="card-body">
+								<div id="skillsCommunicationBlock">
+									<div id="tabContentAcquired" class="tab-content">
+										<!-- skillAcquiredBlock Template -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					<div class="card" id="skillArchived">
+						<div class="card-header collapsed" id="headingArchived" data-toggle="collapse" 
+						data-target="#collapseArchived" aria-expanded="true" aria-controls="collapseArchived">
+							<a class="card-link">
+								Compétences archivées
+							</a>
+							<i class="fas fa-caret-down float-right" id="arrow"></i>
+						</div>
+			
+						<div id="collapseArchived" class="collapse" aria-labelledby="headingArchived">
+							<div class="card-body">
+								<div id="skillsCommunicationBlock">
+									<div id="tabContentArchived" class="tab-content">
+										<!-- skillArchivedBlock Template -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="skillChart" role="tabpanel">
+				<div id="skillChartOptions">
+					<div class="form-inline optionGroup">
+						<input id="radioNumber" class="optionRadio" type="radio" name="option">
+						<div class="form-group" id="optionNumGroup">
+							<label for="optionNumber" id="labelInputNumber">Nombre de valeurs par compétence</label>
+							<input id="optionNumber" type="number" class="form-control col-md-3" min="0" value="4">
+						</div>
+					</div>
+					<div class="form-inline optionGroup">
+						<input id="radioDate" class="optionRadio" type="radio" name="option">
+						<div id="optionDateGroup">
+							<div class="form-group">
+								<label for="optionBeginDate" id="labelInputDate">Date de début</label>
+								<input id="optionBeginDate" type="date" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="optionEndDate" id="labelInputDate">Date de fin (optionnel)</label>
+								<input id="optionEndDate" type="date" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="form-inline optionGroup">
+						<div class="form-group optionCheckboxGroup">
+							<input type="checkbox" id="currentCheckbox" class="form-control optionCheckbox">
+							<label for="currentCheckbox">Compétences en cours</label>
+						</div>
+						<div class="form-group optionCheckboxGroup">
+							<input type="checkbox" id="acquiredCheckbox" class="form-control optionCheckbox">
+							<label for="acquiredCheckbox">Compétences acquises</label>
+						</div>
+						<div class="form-group optionCheckboxGroup">
+							<input type="checkbox" id="archivedCheckbox" class="form-control optionCheckbox">
+							<label for="archivedCheckbox">Compétences archivées</label>
+						</div>
+					</div>
+					<button id="optionBtn" class="btn btn-primary">Appliquer</button>
+					<button id="resetBtn" class="btn btn-primary">Reset</button>
+				</div>
+				<div id="chart-container">
+					<canvas id="chart"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End skillSection -->
+
+	<!-- archivedCategory -->
+	<div class="tab-pane fade row" id="archivedCategory" role="tabpanel">
+		<div id="skillDataContent">
+			<div class="card" id="skillCurrent">
+				<div class="card-header" id="headingCurrent" data-toggle="collapse" 
+				data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+					<a class="card-link">
+						Compétences en cours
+					</a>
+					<i class="fas fa-caret-up float-right" id="arrow"></i>
+				</div>
+				<div id="collapseCurrent" class="collapse show" aria-labelledby="headingCurrent">
+					<div class="card-body">
+						<div id="skillsCompétences">
+							<div id="tabContentCurrent" class="tab-content">
+								<!-- skillCurrentBlock Template -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="card" id="skillAcquired">
+				<div class="card-header collapsed" id="headingAcquired" data-toggle="collapse" 
+				data-target="#collapseAcquired" aria-expanded="true" aria-controls="collapseAcquired">
+					<a class="card-link">
+						Compétences acquises
+					</a>
+					<i class="fas fa-caret-down float-right" id="arrow"></i>
+				</div>
+	
+				<div id="collapseAcquired" class="collapse" aria-labelledby="headingAcquired">
+					<div class="card-body">
+						<div id="skillsCommunicationBlock">
+							<div id="tabContentAcquired" class="tab-content">
+								<!-- skillAcquiredBlock Template -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="card" id="skillArchived">
+				<div class="card-header collapsed" id="headingArchived" data-toggle="collapse" 
+				data-target="#collapseArchived" aria-expanded="true" aria-controls="collapseArchived">
+					<a class="card-link">
+						Compétences archivées
+					</a>
+					<i class="fas fa-caret-down float-right" id="arrow"></i>
+				</div>
+	
+				<div id="collapseArchived" class="collapse" aria-labelledby="headingArchived">
+					<div class="card-body">
+						<div id="skillsCommunicationBlock">
+							<div id="tabContentArchived" class="tab-content">
+								<!-- skillArchivedBlock Template -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End archivedCategory -->
+
+	<!-- skillCurrentBlock -->
+	<div id="skillCurrentBlock" class="row">
+		<div id="skillName" class="col-md-6"></div>
+		<div class="col-md-6 skillsCheck" id="skillsCheckbox">
+			<div class="element">
+				<div class="skillsRound" id="red">
+					<input id="checkbox_red" type="checkbox" disabled>
+					<label for="checkbox_red" class="red text-center">
+						<i class="fa fa-frown fa-lg"></i>
+					</label>
+				</div>
+			</div>
+			<div class="element">
+				<div class="skillsRound" id="orange">
+					<input id="checkbox_orange" type="checkbox" disabled>
+					<label for="checkbox_orange" class="orange text-center">
+						<i class="fa fa-meh fa-lg"></i>
+					</label>
+				</div>
+			</div>
+			<div class="element">
+				<div class="skillsRound" id="green">
+					<input id="checkbox_green" type="checkbox" disabled>
+					<label for="checkbox_green" class="green text-center">
+						<i class="fa fa-smile fa-lg"></i>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End skillCurrentBlock -->
+
+	<!-- skillAcquiredBlock -->
+	<div id="skillAcquiredBlock" class="row">
+		<div id="skillName" class="col-md-12"></div>
+	</div>
+	<!-- End skillAcquiredBlock -->
+
+	<!-- skillArchivedBlock -->
+	<div id="skillArchivedBlock" class="row">
+		<div id="skillName" class="col-md-12"></div>
+	</div>
+	<!-- End skillArchivedBlock -->
+</template>
+<!-- End Template -->
+
+
+
+<!-- Competences Row -->
+<div id="skillParent" class="col-md-12">
+	<!-- Skills Content -->
+	<ul id="skillTabs" class="nav nav-tabs" role="tablist">
+		<!-- skillTabBtn Template -->
+		<li class="nav-item hidden" id="archivedCategoriesTab">
+			<a class="nav-link" id="tabId" data-toggle="tab" href="#archivedCategories" role="tab">Catégories archivées</a>
+		</li>
+	</ul>
+
+	<div id="skillContainer" class="tab-content">
+		<!-- skillSection Template -->
+		<div class="tab-pane fade row" id="archivedCategories" role="tabpanel">
+			<ul id="categoryTabs" class="nav nav-tabs" role="tablist">
+				<!-- skillTabBtn Template -->
+			</ul>
+			<div id="categoryContainer" class="tab-content">
+				<!-- archivedCategory Template -->
+			</div>
+		</div>
+	</div>
+	<!-- End Skills Content -->
+</div>
+
+<script src="../skills/skills.js"></script>

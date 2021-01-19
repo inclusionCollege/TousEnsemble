@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Configuration</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	
+	<!-- Page Link -->
+	<link rel="stylesheet" href="../school/school.css">
+	<!-- End Page Link -->
+</head>
+
+<body>
+	<!-- Page Template -->
+	<template>
+		<li id="admin">
+			<u><span id="adminName" data-tooltip="tooltip" data-placement="top" class="adminName"></span></u>
+			<button class="btn btn-danger" id="adminDel" 
+			data-tooltip="tooltip" data-placement="top" title="Supprimer l'admin">
+				<i class="fas fa-times"></i>
+			</button>
+			<span id="adminLoading" class="hidden">
+				<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+			</span>
+		</li>
+	</template>
+	<!-- End Page Template -->
+
+	<!-- Page Modals -->
+	<!-- adminDelModal -->
+	<div class="modal fade" id="adminDelModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="adminDelModalTitle">Supprimer un admin</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="body">
+						<span>Voulez vous vraiment supprimer cet admin ?</span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="validButton" type="button" class="btn btn-danger" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End adminDelModal -->
+
+	<!-- saveConfigModal -->
+	<div class="modal fade" id="saveConfigModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="adminDelModalTitle">Attention</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="body">
+						<span>
+							Choisir l'image par défaut va supprimer l'image en cours.<br>
+							Êtes-vous sûr de vouloir continuer ?
+						</span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="validButton" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End saveConfigModal -->
+	<!-- End Page Modals -->
+
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Page Content -->
+				<h1 class="text-center">Page de configuration</h1>
+				<div class="configContent">
+					<div id="schoolLoading" class="text-center hidden">
+						<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+					</div>
+					<div id="schoolAlert" class="alert hidden" role="alert"></div>
+					<div class="row">
+						<div class="form-group col-md-6 input-group-lg">
+							<div class="form-group input-group-lg">
+								<label for="schoolName">Nom de l'école</label>
+								<input id="schoolName" type="text" class="form-control" placeholder="Nom">
+							</div>
+							<div class="form-group input-group-md">
+								<label for="schoolSite">Site de l'école</label>
+								<input id="schoolSite" type="text" class="form-control" placeholder="http://www.site.com">
+							</div>
+							<div class="form-group">
+								<label for="schoolImgBrowse">Image de l'école</label>
+								<div class="custom-file" id="schoolImgBrowse">
+									<input type="file" class="custom-file-input" id="schoolImg" accept="image/*">
+									<label class="custom-file-label" for="schoolImg">Choisir l'image</label>
+								</div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="schoolDefaultImg">
+									<label for="schoolDefaultImg" class="form-check-label">Choisir l'image par défaut</label>
+								</div>
+								<div class="progress hidden" id="schoolImgProgressBarContainer">
+									<div id="schoolImgProgressBar" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-3"></div>
+						<div class="col-md-3 text-right">
+							<button id="saveSchoolInfo" class="btn btn-primary">Enregistrer</button>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="d-flex justify-content-between align-items-center">
+						<h5>Liste des administrateurs</h5>
+						<a id="addAdmin" class="btn btn-primary">Ajouter un admin</a>
+					</div>
+					<div class="col-md-9">
+						<div id="adminAlert" class="alert hidden" role="alert"></div>
+						<ul id="adminList">
+							<!-- admin Template -->
+						</ul>
+					</div>
+				</div>
+				<!-- End Page Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+
+	<!-- Page Scripts -->
+	<script src="../school/school.js"></script>
+	<!-- End Page Scripts -->
+
+</body>
+
+</html>

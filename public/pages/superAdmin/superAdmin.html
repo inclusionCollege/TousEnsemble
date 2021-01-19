@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Super Administrateur</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../common/common.css">
+	<link rel="stylesheet" type="text/css" href="../superAdmin/superAdmin.css">
+
+</head>
+
+<body>
+
+	<!-- Template -->
+	<template id="superTemplate">
+		<!-- school -->
+		<div class="card" id="school">
+			<div class="card-header collapsed" id="schoolLink" data-toggle="collapse" data-target="#collapseCurrent" aria-expanded="true" aria-controls="collapseCurrent">
+				<a class="card-link" href="#" id="schoolName"></a>
+				<i class="fas fa-caret-down float-right" id="arrow"></i>
+			</div>
+			<div class="collapse" id="schoolContent">
+				<div class="card-body">
+					<div>
+						<h5>Liste des administrateurs</h5>
+						<ul id="adminList">
+							<!-- admin Template -->
+						</ul>
+						<div>
+							<a class="btn btn-secondary" id="schoolBtn">Page admin</a>
+							<!-- <button class="btn btn-danger" id="schoolDel">Supprimer l'école</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End school -->
+
+		<!-- admin -->
+		<li id="admin">
+			<u><span id="adminName" data-tooltip="tooltip" data-placement="top" class="adminName"></span></u>
+		</li>
+		<!-- End admin -->
+
+		<!-- superAdmin -->
+		<li id="superAdmin">
+			<u><span id="superAdminName" data-tooltip="tooltip" data-placement="top" class="superAdminName"></span></u>
+			<!-- <button class="btn btn-danger" id="adminDel" 
+			data-tooltip="tooltip" data-placement="top" title="Supprimer l'admin">
+				<i class="fas fa-times"></i>
+			</button> -->
+		</li>
+		<!-- End superAdmin -->
+	</template>
+	<!-- End Template -->
+
+	<!-- Modals -->
+	<!-- schoolDelModal -->
+	<div class="modal fade" id="schoolDelModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="adminDelModalTitle">Supprimer une école</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="body">
+						<span>Voulez vous vraiment supprimer cette école ?</span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="schoolDelBtn" type="button" class="btn btn-danger" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End schoolDelModal -->
+
+	<!-- saveConfigModal -->
+	<div class="modal fade" id="saveConfigModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="adminDelModalTitle">Attention</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="body">
+						<span>
+							Choisir l'image par défaut va supprimer l'image en cours.<br>
+							Êtes-vous sûr de vouloir continuer ?
+						</span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<button id="validButton" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End saveConfigModal -->
+	<!-- End Modals -->
+
+	<div class="container">
+		<div class="row" id="header"></div>
+		<div class="row">
+			<div class="col-md-2" id="aside"></div>
+			<div class="col-md-10" id="content">
+				<!-- Superadmin Content -->
+				<div class="row">
+					<div class="col-md-9">
+						<h3>Liste des écoles</h3>
+						<div id="schoolsContainer">
+							<!-- school Template -->
+						</div>
+					</div>
+					<div class="col-md-3">
+						<a href="../inscription/inscriptionSchool.html" 
+						class="btn btn-secondary float-right">Ajouter une école</a>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-9">
+						<h3>Liste des superAdministrateurs</h3>
+						<ul id="superAdminList">
+							<!-- superAdmin Template -->
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<a href="../inscription/inscriptionSuperAdmin.html" 
+						class="btn btn-secondary float-right">Ajouter un superAdmin</a>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-9">
+						<h3>Configuration</h3>
+						<div id="configLoading" class="text-center hidden">
+							<i class="fa fa-spinner fa-spin" style="font-size:200%"></i>
+						</div>
+						<div id="configAlert" class="alert hidden" role="alert"></div>
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-11">
+								<div class="configItem">
+									<h5><u>Site</u></h5>
+									<div class="form-group">
+										<label for="siteName">Nom du site</label>
+										<textarea id="siteName" class="form-control" 
+										placeholder="Nom du site" rows="1"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="siteImgBrowse">Image du site</label>
+										<div class="custom-file" id="siteImgBrowse">
+											<input type="file" class="custom-file-input" id="siteImg" accept="image/*">
+											<label class="custom-file-label" for="siteImg">Choisir l'image</label>
+										</div>
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input" id="siteDefaultImg">
+											<label for="siteDefaultImg" class="form-check-label">Choisir l'image par défaut</label>
+										</div>
+										<div class="progress hidden" id="siteImgProgressBarContainer">
+											<div id="siteImgProgressBar" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+										</div>
+									</div>
+								</div>
+								<div class="configItem">
+									<h5><u>Contact</u></h5>
+									<div class="form-group">
+										<label for="contactName">Nom</label>
+										<input id="contactName" class="form-control" 
+										placeholder="Nom de contact"></input>
+									</div>
+									<div class="form-group">
+										<label for="contactAddress">Adresse</label>
+										<textarea id="contactAddress" class="form-control" 
+										placeholder="Adresse de contact"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-primary float-right" id="saveConfig">Enregistrer</button>
+					</div>
+				</div>
+				<!-- End Superadmin Content -->
+			</div>
+		</div>
+		<div class="row" id="footer"></div>
+	</div>
+
+	<script src="../common/firebaseConfig.js"></script>
+	<script src="../common/commonFonctions.js"></script>
+	<script src="../common/firebaseCloudFunctions.js"></script>
+	<script src="../common/databaseConfig.js"></script>
+
+	<script src="../common/pageLoader.js"></script>
+
+	<script src="../common/autosize.min.js"></script>
+	<script src="../superAdmin/superAdmin.js"></script>
+
+</body>
+
+</html>
